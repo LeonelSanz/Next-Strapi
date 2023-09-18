@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCoverImage, getGames } from "./services/videogames";
+import { mdToHTML } from "./snarkdown";
 
 export default async function Home() {
   const games = await getGames();
@@ -21,9 +22,10 @@ export default async function Home() {
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {attributes.title}
             </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              {attributes.description}
-            </p>
+            <p 
+              className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+              dangerouslySetInnerHTML={{ __html: mdToHTML(attributes.description) }}
+            />
           </div>
         </Link>
       ))}

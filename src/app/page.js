@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { getCoverImage, getGames } from "./services/videogames";
 import { mdToHTML } from "./snarkdown";
+import { Pagination } from "./components/Pagination";
 
 export default async function Home() {
-  const games = await getGames();
+  const { data: games, pagination } = await getGames({ page: 1 });
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
@@ -28,7 +29,9 @@ export default async function Home() {
             />
           </div>
         </Link>
-      ))}
+      ))
+      }
+      <Pagination pagination={pagination} />
     </main>
   );
 }
